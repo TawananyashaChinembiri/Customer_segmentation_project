@@ -95,3 +95,8 @@ last_purchase = ggplot(data = csd, aes(x=last_purchase_amount)) +
   )
 
 ggsave('last purchase distribution.png', plot = last_purchase, width = 6, height = 4)
+
+
+# Histogram showing the spending score of the customers
+
+
