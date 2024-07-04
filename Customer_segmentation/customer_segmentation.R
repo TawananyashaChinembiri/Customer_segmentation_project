@@ -99,4 +99,28 @@ ggsave('last purchase distribution.png', plot = last_purchase, width = 6, height
 
 # Histogram showing the spending score of the customers
 
+spending_score_hist <- ggplot(data = csd, aes(x=spending_score)) +
+  geom_histogram(fill= 'blue', color = 'black', binwidth = 10) +
+  labs(
+    title = 'Spending score distribution',
+    subtitle = 'Histogram showing the distribution of the spending score',
+    x = 'Spending Score',
+    y = 'Number of employees'
+    
+  )
 
+ggsave('Spending Score Histogram.png', plot = spending_score_hist, width = 6, height = 4)
+
+
+# regression plot showing relationship between age and income
+age_income_relationship<- ggplot(data = csd, aes(x <-age, y <-income)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE)
+
+ggsave('Age-Income relationship.png', plot = age_income_relationship, width = 6, height = 4)
+
+
+# Finding the gender with the highest purchase frequency
+
+csd %>% 
+  dplyr::group_by(gender)
