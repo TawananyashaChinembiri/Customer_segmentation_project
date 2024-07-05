@@ -122,5 +122,82 @@ ggsave('Age-Income relationship.png', plot = age_income_relationship, width = 6,
 
 # Finding the gender with the highest purchase frequency
 
-csd %>% 
-  dplyr::group_by(gender)
+summarized_data <- csd %>% 
+  dplyr::group_by(gender) %>% 
+  dplyr::summarise(mean_value = mean(purchase_frequency))
+
+gender_based_purchase_frequency <- ggplot(data = summarized_data, aes(x = gender, y = mean_value)) +
+  geom_bar(stat = 'identity', fill= 'blue', color = 'black') +
+  labs(
+    title =  'Purchase Frequency visualisations',
+    subtitle = 'Bar chart showing Purchase Frequency according to gender',
+    x = 'Gender', 
+    y = 'Purchase Frequency'
+  )
+
+ggsave('purchase_frequency.png', plot = gender_based_purchase_frequency, width = 6, height = 4)
+
+# preferred category  and the sum fo the purchased frequency
+
+category_group <- csd %>% 
+  dplyr::group_by(preferred_category) %>% 
+  dplyr::summarise(mean_purchase_frequency = mean(purchase_frequency))
+
+category_based_purchase_frequency <- ggplot(data = category_group, aes(x=preferred_category, y = mean_purchase_frequency)) +
+  geom_bar(stat = 'identity', fill = 'blue', color = 'black' ) +
+  labs(
+    title = 'Category Based Purchase Frequency',
+    subtitle = 'Bar graph showing the Category Based Purchase Frequency',
+    x = 'Purchase Frequency',
+    y = ' Mean Purchase Frequency'
+    )
+ggsave('Category Based Purchase Frequency.png', 
+       plot = category_based_purchase_frequency,
+       width = 6, 
+       height = 4
+       )
+
+# Gender with more membership years
+gender_based_membership_years <- csd %>% 
+  dplyr::group_by(gender) %>% 
+  dplyr::summarise(average_membership_years =mean(membership_years))
+
+ gender_based_membership_years_plot <- ggplot(
+   data = gender_based_membership_years,
+   aes(x = gender, y = average_membership_years)
+   ) +
+   geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
+   labs(
+     title = 'Gender Based Membership Plot',
+     subtitle = 'Bar chart showing the Gender Based Membership Plot',
+     x =  'Gender',
+     y = 'Average Membership Years'
+   )
+ 
+ ggsave('Gender Based membership Plot.png', 
+        plot = gender_based_membership_years_plot,
+        height = 4,
+        width = 6)
+ 
+ # Gender with more spending scores
+ gender_based_spending_scores <- csd %>% 
+   dplyr::group_by(gender) %>% 
+   dplyr::summarise(average_spending_score = mean(spending_score))
+ 
+ gender_based_spending_score_plot <- ggplot(data = gender_based_spending_scores,
+   aes(x = gender, y = average_spending_score)
+   ) +
+   geom_bar(stat = 'identity', fill = 'blue', color = 'black') +
+   labs(
+     title = 'Gender Based Spending Score',
+     subtitle = 'Bar chart showing the Gender Based Spending Score',
+     x =  'Gender',
+     y = 'Average Membership Years'
+   )
+ 
+ ggsave('Gender Based Spending Score.png', 
+        plot = gender_based_spending_score_plot,
+        height = 4,
+        width = 6)
+ 
+
